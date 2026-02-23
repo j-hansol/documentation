@@ -92,19 +92,29 @@ vi /var/lib/pgsql/16/data/postgresql.conf
 listen_addresses = '*'
 ```
 
-### 2.6. 방화벽 개방
+### 2.6. 외부로부터의 접속 가능 호스트 및 사용자 설정
+```/var/lib/pgsql/16/data/pg_hba.conf``` 파일을 열어 편집
+```
+sudo vi /var/lib/pgsql/16/data/pg_hba.conf
+```
+최 하단에 아래 내용 추가
+```
+host    dxspark         dxspark         0.0.0.0/0               scram-sha-256
+```
+
+### 2.7. 방화벽 개방
 방화벽이 설치된 경우 아래 명령으로 개방 필요
 ```
 firewall-cmd --permanent --add-service=postgresql
 firewall-cmd --reload
 ```
 
-### 2.7. pgvector 설치
+### 2.8. pgvector 설치
 ```
 dnf install -y pgvector_16
 ```
 
-### 2.8. 서비스 재실행
+### 2.9. 서비스 재실행
 ```
 systemctl restart postgresql-16
 ```
